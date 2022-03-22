@@ -5,8 +5,9 @@ import Card from './lib/Card';
 
 function App() {
   const [count, setCount] = useState(0)
+  const [score, setScore] = useState(0)
   //🦍🦩🐼🐢🐬
-  
+
 
   return (
     <div className="App app__background">
