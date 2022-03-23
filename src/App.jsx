@@ -6,6 +6,9 @@ import {v4 as uuidv4} from 'uuid';
 import { useEffect } from 'react/cjs/react.production.min';
 
 function App() {
+  //To do
+  //- add deselection, on deselect, and on card deletion
+  //- arrange generated cards into grid
 
   //Game state
   const [cards, setCards] = useState([])
@@ -14,7 +17,7 @@ function App() {
 
   //Game parameters
   const iconset = ['🦍','🦩','🐼','🐢','🐬']
-  const cardPairs = 2;
+  const cardPairs = 5;
 
   function toggleSelected(id) {
     const newCards = [...cards]
@@ -36,8 +39,6 @@ function App() {
     }
   }
 
-  //To do
-  //- add deselection, on deselect, and on card deletion
   function match (card1, card2) {
     if (card1.icon === card2.icon) {
       console.log("Match!")
@@ -95,7 +96,10 @@ function App() {
     <div className="App app__background">
 
       <p>{score}</p>
-      <Board cards={cards} toggleSelected={toggleSelected}></Board>
+      
+      <div className="board">
+        <Board cards={cards} toggleSelected={toggleSelected}></Board>
+      </div>
       {/* <button onClick={addRandomCard}>Add card</button> */}
       <button onClick={startGame}>Start Game!</button>
 
