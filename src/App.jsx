@@ -7,11 +7,14 @@ import { useEffect } from 'react/cjs/react.production.min';
 
 function App() {
 
-  //🦍🦩🐼🐢🐬
+  //Game state
   const [cards, setCards] = useState([])
-  const [selections, setSelections] = useState([])
-  const cardPairs = 2;
+  const [selections, setSelections] = useState([])  
   const [score, setScore] = useState(0);
+
+  //Game parameters
+  const iconset = ['🦍','🦩','🐼','🐢','🐬']
+  const cardPairs = 2;
 
   function toggleSelected(id) {
     const newCards = [...cards]
@@ -44,7 +47,7 @@ function App() {
   }
 
   function removeCard (card) {
-    cards
+    // cards
   }
 
   function endGame() {
@@ -52,9 +55,11 @@ function App() {
   }
   
   function generateBoard() {
+    
     for(let i = 0; i < cardPairs; i++) {
       
-      addCard("🐬");
+      addCard(iconset[i]);
+      addCard(iconset[i]);
     }
 
   }
