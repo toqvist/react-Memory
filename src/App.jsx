@@ -37,13 +37,13 @@ function App() {
   }
 
   //To do
-  //- add deselection
+  //- add deselection, on deselect, and on card deletion
   function match (card1, card2) {
     if (card1.icon === card2.icon) {
       console.log("Match!")
       setScore(score+1)
       
-      removeCard(card1, card2)
+      removeCards(card1, card2)
       
       if(cards.length === 0 ) {
         endGame();
@@ -56,6 +56,10 @@ function App() {
     alert("End of game!")
   }
   
+  function startGame() {
+    generateBoard();
+  }
+
   function generateBoard() {
     
     for(let i = 0; i < cardPairs; i++) {
@@ -66,7 +70,7 @@ function App() {
 
   }
   
-  function removeCard (card1, card2) {
+  function removeCards (card1, card2) {
     const newCards = cards.filter(c => c.id != card1.id && c.id != card2.id)
     setCards(newCards)
   }
@@ -92,7 +96,8 @@ function App() {
 
       <p>{score}</p>
       <Board cards={cards} toggleSelected={toggleSelected}></Board>
-      <button onClick={addRandomCard}>Add card</button>
+      {/* <button onClick={addRandomCard}>Add card</button> */}
+      <button onClick={startGame}>Start Game!</button>
 
       
     </div>
