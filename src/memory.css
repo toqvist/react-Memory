@@ -10,25 +10,26 @@
 
 .card {
     background-color: aliceblue;
-    border: 2px solid rgb(184, 184, 184);;
-    border-radius: 12px;
+    /* border: 12px solid rgb(233, 233, 233);; */
+    border-radius: 14px;
     padding: 2rem;
-    font-size: 3rem;
+    font-size: 4.5rem;
+    text-align: center;
+}
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    
+.selectable {
+    height: 150px;
+    width: 150px;
+    background-color: aliceblue;
+    border-radius: 12px;
+
 }
 
 .selectable:hover {
-    transform: scale(1.00);
     /* transition: 100ms; */
     border: 3px solid yellow;
     border-radius: 15px;
-    height: 150px;
-    width: 150px;
+    
 
 }
 
