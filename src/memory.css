@@ -15,24 +15,21 @@
     padding: 2rem;
     font-size: 3rem;
 
-    max-width: 5rem;
-    max-height: 5rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    
 }
 
-.card:hover {
-    transform: scale(1.05);
+.selectable:hover {
+    transform: scale(1.00);
     /* transition: 100ms; */
     border: 3px solid yellow;
+    border-radius: 15px;
+    height: 150px;
+    width: 150px;
 
-}
-
-
-.selected {
-    transform: scale(1.0);
-    border: 5px solid yellow;
 }
 
 /* Make grid size reactive when adding grid options in game later */
@@ -42,4 +39,9 @@
     grid-template-rows: repeat(4,1fr);
 
     gap: 1rem;
+}
+
+.hide {
+    font-size: 0;
+    opacity: 0;
 }

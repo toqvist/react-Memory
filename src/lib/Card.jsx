@@ -7,13 +7,25 @@ export default function Card({card, toggleSelected}) {
     }
 
     return (
-        <div className={`card ${card.isSelected && 'selected'}`} onClick={handleSelected}>
-            <div className="border">
-                <div className="content">
-                    <p>{card.icon}</p>
+
+        // <div className={`card ${card.isSelected && 'selected'}`} onClick={handleSelected}>
+        <div onClick={handleSelected} className='selectable' >
+            {!card.isSelected &&
+                <img src="/src/assets/square-card.svg" alt="" width='150' height='150'/>
+                // {`a ${card.isSelected ? '' : 'hide'}`}
+            }
+            
+            {card.isSelected &&
+                <div className='card'>
+                    <p  >
+                        {card.icon}
+                    </p>
                 </div>
-            </div>
+            }
         </div>
+        // <div>isSelected is {card.isSelected}</div>
+
+        
     )
 }
 
