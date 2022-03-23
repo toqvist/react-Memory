@@ -3,31 +3,84 @@ import logo from './logo.svg';
 import './memory.css';
 import Board from './lib/Board';
 import {v4 as uuidv4} from 'uuid';
+import { useEffect } from 'react/cjs/react.production.min';
 
 function App() {
 
   //🦍🦩🐼🐢🐬
   const [cards, setCards] = useState([])
+  const [selections, setSelections] = useState([])
+  const cardPairs = 2;
+  const [score, setScore] = useState(0);
 
   function toggleSelected(id) {
     const newCards = [...cards]
     const card = newCards.find(card => card.id === id)
     card.isSelected = !card.isSelected;
     setCards(newCards)
+
+    const newSelections = [...selections, card]
+    setSelections(newSelections)
+    
+    // console.log(newSelections.length)
+    console.log(selections.length)
+    if (newSelections.length == 2) {
+      // determineMatch(selections[0], selections[1])
+      if(newSelections[0].icon === newSelections[1].icon) {
+        match(newSelections[0],newSelections[1]);
+        
+      }
+    }
   }
 
+  function match (card1, card2) {
+    if (card1.icon === card2.icon) {
+      console.log("Match!")
+      setScore(score+1)
+      if(cards.length === 0 ) {
+        endGame();
+      }
+    }
+  }
 
-  function addCard () {
+  function removeCard (card) {
+    cards
+  }
+
+  function endGame() {
+    alert("End of game!")
+  }
+  
+  function generateBoard() {
+    for(let i = 0; i < cardPairs; i++) {
+      
+      addCard("🐬");
+    }
+
+  }
+  
+
+  function addCard (icon) {
+    
     setCards(prevCards => {
-      return [...prevCards, {id:uuidv4(), icon:"🐬", isSelected:false}]
+      return [...prevCards, {id:uuidv4(), icon:icon, isSelected:false}]
     })
   }
+
+  function addRandomCard () {
+    const icon = "🦍"
+    
+    setCards(prevCards => {
+      return [...prevCards, {id:uuidv4(), icon:icon, isSelected:false}]
+    })
+  }
+
 
   return (
     <div className="App app__background">
 
       <Board cards={cards} toggleSelected={toggleSelected}></Board>
-      <button onClick={addCard}>Add card</button>
+      <button onClick={addRandomCard}>Add card</button>
       
     </div>
   )
