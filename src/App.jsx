@@ -6,9 +6,9 @@ import { useEffect } from 'react/cjs/react.production.min';
 
 function App() {
   //To do
-  //- add deselection, on deselect, and on card deletion
   //- deleting cards should not move remaining cards
-  //- symbols should be hidden, then revealed
+  //- Don't repeat myself in toggleSelected
+  //- Add delay on match
 
   //Game state
   const [cards, setCards] = useState([])
@@ -19,51 +19,39 @@ function App() {
   const iconset = ['🦍', '🦩', '🐼', '🐢', '🐬', '🦜', '🦢']
   const cardPairs = 5;
 
+
   function toggleSelected(id) {
-    const newCards = [...cards]
-    const card = newCards.find(card => card.id === id)
-    card.isSelected = !card.isSelected;
-    setCards(newCards)
+
+    const card = cards.find(card => card.id === id)
+        
+    //Unselect if the card is selected
+    if(card.isSelected) {
+      const newSelections = []
+      setSelections(newSelections)
+
+      card.isSelected = !card.isSelected
+      const newCards = [...cards]
+      setCards(newCards)
+    
+      return
+    } 
+    
 
     const newSelections = [...selections, card]
     setSelections(newSelections)
     
-    // console.log(newSelections.length)
-    console.log(selections.length)
-    if (newSelections.length == 2) {
-      // determineMatch(selections[0], selections[1])
-      if(newSelections[0].icon === newSelections[1].icon) {
-        match(newSelections[0],newSelections[1]);
-        
-      }
-    }
+    //Update state for the card component
+    card.isSelected = !card.isSelected
+    const newCards = [...cards]
+    setCards(newCards)
+    
+
+    if(newSelections.length === 2) [
+      match(newSelections[0],newSelections[1])
+
+    ]
+
   }
-
-  // function toggleSelected(id) {
-
-  //   //If card is not already selected
-
-  //   if (selections.length == 0) {
-
-  //     const newCards = [...cards]
-  //     const card = newCards.find(card => card.id === id)
-  //     card.isSelected = !card.isSelected;
-  //     setCards(newCards)
-
-  //     const newSelections = [...selections, card]
-  //     setSelections(newSelections)
-
-
-  //   }
-
-  //   if (newSelections.length == 1) {
-  //     // determineMatch(selections[0], selections[1])
-  //     if (newSelections[0].icon === newSelections[1].icon) {
-  //       match(newSelections[0], newSelections[1]);
-
-  //     }
-  //   }
-  // }
 
 
   function match(card1, card2) {
@@ -71,7 +59,11 @@ function App() {
       console.log("Match!")
       setScore(score + 1)
 
+
       removeCards(card1, card2)
+
+      const newSelections = []
+      setSelections(newSelections)
 
       if (cards.length === 0) {
         endGame();
@@ -81,7 +73,7 @@ function App() {
   }
 
   function endGame() {
-    alert("End of game!")
+    console.log("End of game!")
   }
 
   function startGame() {

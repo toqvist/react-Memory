@@ -12,12 +12,11 @@ export default function Card({card, toggleSelected}) {
         <div onClick={handleSelected} className='selectable' >
             {!card.isSelected &&
                 <img src="/src/assets/square-card.svg" alt="" width='150' height='150'/>
-                // {`a ${card.isSelected ? '' : 'hide'}`}
             }
             
             {card.isSelected &&
                 <div className='card'>
-                    <p  >
+                    <p>
                         {card.icon}
                     </p>
                 </div>
