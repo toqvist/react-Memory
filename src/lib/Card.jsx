@@ -1,26 +1,21 @@
 import React, { useState } from 'react'
 
-export default function Card(props) {
+export default function Card({card, toggleSelected}) {
     //🦍🦩🐼🐢🐬
 
-    //Math.round(Math.random()*5)
-    const [isSelected, setSelected] = useState(false);
-
-    function handleClick(event) {  
-        // setSelected(!isSelected)
-        setSelected(!isSelected);
-        console.log("Selected " + event.target + " " + isSelected)
-        
+    function handleSelected (){
+        toggleSelected(card.id)
     }
 
+
     return (
-        <div className={`card ${isSelected && 'selected'}`} onClick={handleClick}>
+        <div className={`card ${card.isSelected && 'selected'}`} onClick={handleSelected}>
             <div className="border">
                 <div className="content">
-                    <p>{props.icon}</p>
-                    <p>{isSelected}</p>
+                    <p>{card.icon}</p>
                 </div>
             </div>
         </div>
     )
 }
+
