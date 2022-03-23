@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 
 export default function Card({card, toggleSelected}) {
-    //🦍🦩🐼🐢🐬
 
     function handleSelected (){
         toggleSelected(card.id)
     }
-
 
     return (
         <div className={`card ${card.isSelected && 'selected'}`} onClick={handleSelected}>
