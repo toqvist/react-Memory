@@ -9,6 +9,7 @@ function App() {
   //- deleting cards should not move remaining cards
   //- Don't repeat myself in toggleSelected
   //- Add delay on match
+  //- Random placement
 
   //Game state
   const [cards, setCards] = useState([])
@@ -23,7 +24,7 @@ function App() {
   function toggleSelected(id) {
 
     const card = cards.find(card => card.id === id)
-        
+
     //Unselect if the card is selected
     if(card.isSelected) {
       const newSelections = []
@@ -115,7 +116,7 @@ function App() {
   return (
     <div className="App app__background">
 
-      <p>{score}</p>
+      <p className='score-counter'>{score}</p>
 
       <div className="board">
         <Board cards={cards} toggleSelected={toggleSelected}></Board>
