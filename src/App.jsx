@@ -6,9 +6,8 @@ import { useEffect } from 'react/cjs/react.production.min';
 
 function App() {
   //To do
-  //- deleting cards should not move remaining cards
   //- Don't repeat myself in toggleSelected
-  //- Random placement
+  //- Random placement of cards
   //- Resize grid to fit screen
   //- Pick grid rows+columns based on number of cards
 
@@ -106,7 +105,13 @@ function App() {
   }
 
   function startGame() {
+
+
+    const callback = randomizeBoard()
+
+    //Probably need to use a callback or something here, the addCard state update seems to be done asynchronously
     generateBoard();
+    randomizeBoard();
     setGameStarted(true)
   }
 
@@ -117,7 +122,23 @@ function App() {
       addCard(iconset[i]);
       addCard(iconset[i]);
     }
+  }
 
+  function randomizeBoard() {
+
+    let newCards = [];
+    
+    //For each card in the original array, insert it to a random index in the new array
+    for (let i=0; i<cards.length; i++) {
+      
+      let randomIndex = (Math.random()*cards.length);
+      newCards.splice(randomIndex,0, cards[i])
+      console.log(cards[i])
+      console.log(i)
+    }
+    console.log(cards)
+    console.log(newCards)
+    setCards(newCards);
   }
 
   function removeCards(card1, card2) {
@@ -135,15 +156,6 @@ function App() {
       return [...prevCards, { id: uuidv4(), icon: icon, isSelected: false, isRemoved: false  }]
     })
   }
-
-  function addRandomCard() {
-    const icon = "🦍"
-
-    setCards(prevCards => {
-      return [...prevCards, { id: uuidv4(), icon: icon, isSelected: false }]
-    })
-  }
-
 
   return (
     <div className="App app__background">
