@@ -8,7 +8,6 @@ function App() {
   //To do
   //- deleting cards should not move remaining cards
   //- Don't repeat myself in toggleSelected
-  //- Add delay on match
   //- Random placement
 
   //Game state
@@ -46,11 +45,14 @@ function App() {
     const newCards = [...cards]
     setCards(newCards)
     
+    if(newSelections.length === 2) {
+      setTimeout(() => {  
+        match(newSelections[0],newSelections[1]) 
+      }, 1000);
 
-    if(newSelections.length === 2) [
-      match(newSelections[0],newSelections[1])
+      // match(newSelections[0],newSelections[1])
 
-    ]
+    }
 
   }
 
@@ -70,7 +72,19 @@ function App() {
         endGame();
       }
 
+    } else {
+      console.log("Not a match!")
+      const newSelections = []
+      setSelections(newSelections)
+
+      card1.isSelected = !card1.isSelected
+      card2.isSelected = !card2.isSelected
+      
+      const newCards = [...cards]
+      setCards(newCards)
+    
     }
+
   }
 
   function endGame() {
