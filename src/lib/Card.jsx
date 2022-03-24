@@ -19,9 +19,7 @@ export default function Card({card, toggleSelected}) {
             
             {card.isSelected &&
                 <div className='card'>
-                    <p>
-                        {card.icon}
-                    </p>
+                    <p>{card.icon}</p>
                 </div>
             }
         </div>

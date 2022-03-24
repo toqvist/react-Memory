@@ -34,8 +34,6 @@
     /* transition: 100ms; */
     border: 3px solid yellow;
     border-radius: 15px;
-    
-
 }
 
 /* Make grid size reactive when adding grid options in game later */
@@ -61,5 +59,10 @@
 
 .removed-card {
     opacity: 0.1;
-    transition: opacity 250ms;
+    transition: opacity 250ms ease-in-out;
+}
+
+.start-game-button {
+    width: 6rem;
+    height: 2rem;
 }

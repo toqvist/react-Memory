@@ -16,6 +16,7 @@ function App() {
   const [cards, setCards] = useState([])
   const [selections, setSelections] = useState([])
   const [score, setScore] = useState(0);
+  const [gameStarted, setGameStarted] = useState(false)
 
   //Game parameters
   const iconset = ['🦍', '🦩', '🐼', '🐢', '🐬', '🦜', '🦢']
@@ -75,9 +76,12 @@ function App() {
       const newSelections = []
       setSelections(newSelections)
 
-      if (cards.length === 0) {
+      if((score+1) == cardPairs) {
         endGame();
       }
+      // if (cards.length === 0) {
+      //   endGame();
+      // }
 
     } else {
       console.log("Not a match!")
@@ -96,10 +100,14 @@ function App() {
 
   function endGame() {
     console.log("End of game!")
+    setGameStarted(false)
+    setCards([])
+    setScore(0)
   }
 
   function startGame() {
     generateBoard();
+    setGameStarted(true)
   }
 
   function generateBoard() {
@@ -146,7 +154,13 @@ function App() {
         <Board cards={cards} toggleSelected={toggleSelected}></Board>
       </div>
       {/* <button onClick={addRandomCard}>Add card</button> */}
-      <button onClick={startGame}>Start Game!</button>
+      
+      {!gameStarted &&
+        <button onClick={startGame}
+          className="start-game-button">
+          Start Game!
+        </button>
+      }
 
 
     </div>
