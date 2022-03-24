@@ -9,6 +9,8 @@ function App() {
   //- deleting cards should not move remaining cards
   //- Don't repeat myself in toggleSelected
   //- Random placement
+  //- Resize grid to fit screen
+  //- Pick grid rows+columns based on number of cards
 
   //Game state
   const [cards, setCards] = useState([])
@@ -23,6 +25,11 @@ function App() {
   function toggleSelected(id) {
 
     const card = cards.find(card => card.id === id)
+
+    if(card.isRemoved) {
+      console.log("Card is removed and not selectable")
+      return
+    }
 
     //Unselect if the card is selected
     if(card.isSelected) {
@@ -106,7 +113,10 @@ function App() {
   }
 
   function removeCards(card1, card2) {
-    const newCards = cards.filter(c => c.id != card1.id && c.id != card2.id)
+    card1.isRemoved = true;
+    card2.isRemoved = true;
+    // const newCards = cards.filter(c => c.id != card1.id && c.id != card2.id)
+    const newCards=[...cards]
     setCards(newCards)
 
   }
@@ -114,7 +124,7 @@ function App() {
   function addCard(icon) {
 
     setCards(prevCards => {
-      return [...prevCards, { id: uuidv4(), icon: icon, isSelected: false }]
+      return [...prevCards, { id: uuidv4(), icon: icon, isSelected: false, isRemoved: false  }]
     })
   }
 

@@ -9,7 +9,10 @@ export default function Card({card, toggleSelected}) {
     return (
 
         // <div className={`card ${card.isSelected && 'selected'}`} onClick={handleSelected}>
-        <div onClick={handleSelected} className='selectable' >
+        <div onClick={handleSelected}
+        className={`selectable ${card.isRemoved && 'removed-card'}` } 
+        >
+            
             {!card.isSelected &&
                 <img src="/src/assets/square-card.svg" alt="" width='150' height='150'/>
             }
