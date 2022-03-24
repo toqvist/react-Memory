@@ -43,11 +43,9 @@ function App() {
       return
     } 
     
-
     const newSelections = [...selections, card]
     setSelections(newSelections)
     
-    //Update state for the card component
     card.isSelected = !card.isSelected
     const newCards = [...cards]
     setCards(newCards)
@@ -56,8 +54,6 @@ function App() {
       setTimeout(() => {  
         match(newSelections[0],newSelections[1]) 
       }, 1000);
-
-      // match(newSelections[0],newSelections[1])
 
     }
 
@@ -78,10 +74,7 @@ function App() {
       if((score+1) == cardPairs) {
         endGame();
       }
-      // if (cards.length === 0) {
-      //   endGame();
-      // }
-
+      
     } else {
       console.log("Not a match!")
       const newSelections = []
@@ -106,40 +99,31 @@ function App() {
 
   function startGame() {
 
-
-    const callback = randomizeBoard()
-
-    //Probably need to use a callback or something here, the addCard state update seems to be done asynchronously
     generateBoard();
-    randomizeBoard();
     setGameStarted(true)
   }
 
   function generateBoard() {
 
+    let newCards = []
     for (let i = 0; i < cardPairs; i++) {
-
-      addCard(iconset[i]);
-      addCard(iconset[i]);
-    }
-  }
-
-  function randomizeBoard() {
-
-    let newCards = [];
-    
-    //For each card in the original array, insert it to a random index in the new array
-    for (let i=0; i<cards.length; i++) {
       
-      let randomIndex = (Math.random()*cards.length);
-      newCards.splice(randomIndex,0, cards[i])
-      console.log(cards[i])
-      console.log(i)
+      newCards.push ({ id: uuidv4(), icon: iconset[i], isSelected: false, isRemoved: false  });
+      newCards.push ({ id: uuidv4(), icon: iconset[i], isSelected: false, isRemoved: false  });
     }
-    console.log(cards)
+
+    let randomizedNewCards = []
+    for (let i = 0; i<newCards.length; i++) {
+
+      let randomIndex = (Math.random()*newCards.length);
+
+      randomizedNewCards.splice(randomIndex,0, newCards[i])
+    }
     console.log(newCards)
-    setCards(newCards);
+    console.log(randomizedNewCards)
+    setCards(randomizedNewCards);
   }
+
 
   function removeCards(card1, card2) {
     card1.isRemoved = true;
@@ -148,13 +132,6 @@ function App() {
     const newCards=[...cards]
     setCards(newCards)
 
-  }
-
-  function addCard(icon) {
-
-    setCards(prevCards => {
-      return [...prevCards, { id: uuidv4(), icon: icon, isSelected: false, isRemoved: false  }]
-    })
   }
 
   return (
