@@ -38,14 +38,19 @@ function App() {
     }
 
     //Unselect if the card is selected
+    // if (card.isSelected) {
+    //   const newSelections = []
+    //   setSelections(newSelections)
+
+    //   card.isSelected = !card.isSelected
+    //   const newCards = [...cards]
+    //   setCards(newCards)
+
+    //   return
+    // }
+
     if (card.isSelected) {
-      const newSelections = []
-      setSelections(newSelections)
-
-      card.isSelected = !card.isSelected
-      const newCards = [...cards]
-      setCards(newCards)
-
+      
       return
     }
 
