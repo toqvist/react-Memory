@@ -21,22 +21,22 @@ export default function Card({ card, toggleSelected }) {
     return (
 
         <animated.div onClick={handleSelected}
-            className={`card ${card.isRemoved && 'removed-card'}`}
+            className={`card selectable ${card.isRemoved && 'removed-card'}`}
             style={flip}
         >
 
-            <div className="border">
-                {!card.isSelected &&
-                    <img src="/src/assets/square-card.svg" alt=""
-                        width='150' height='150'
-                    />
-                }
-                {card.isSelected &&
-                    <div className='card-front'>
-                        <p>{card.icon}</p>
-                    </div>
-                }
-            </div>
+            
+            {!card.isSelected &&
+                <img src="/src/assets/square-card.svg" alt=""
+                    width='150' height='150' 
+                />
+            }
+            {card.isSelected &&
+                <div className='card-front'>
+                    <p>{card.icon}</p>
+                </div>
+            }
+        
         </animated.div>
 
     )

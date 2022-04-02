@@ -18,26 +18,17 @@
     height: 150px;
     width: 150px;
     /* background-color: aliceblue; */
-    border-radius: 12px;
+    border-radius: 16px;
     border: 3px solid transparent;
 }
 
 .card-front {
     background-color: aliceblue;
     border: 3px solid aliceblue;
-    border-radius: 14px;
+    border-radius: 16px;
     padding: 2rem;
     font-size: 4.5rem;
     text-align: center;
-}
-
-
-
-.card:hover {
-    /* transition: 100ms; */
-    border: 3px solid yellow;
-    border-radius: 15px;
-    
 }
 
 /* Make grid size reactive when adding grid options in game later */
@@ -74,11 +65,6 @@
     transition: opacity 250ms ease-in-out;
 }
 
-.start-game-button {
-    width: 6rem;
-    height: 2rem;
-}
-
 .quit-game {
     border: solid rgb(42, 39, 25);
     background-color: transparent;
@@ -89,6 +75,23 @@
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.quit-game:hover {
+.selectable:hover {
     border: solid yellow;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+}
+
+.menu-button {
+    width: 22rem;
+    height: 3rem;
+    border: solid aliceblue 2px;
+    border-radius: 14px;
+    background-color: rgb(49, 59, 88);
+    color: aliceblue;
+    font-size: 1.5rem;
+    padding: 10px;
 }

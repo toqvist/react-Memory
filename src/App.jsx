@@ -155,7 +155,7 @@ function App() {
     <div className="App app__background">
       {gameStarted && <>
       <div className="score">
-            <button className='quit-game'
+            <button className='quit-game selectable'
             onClick={abandonRound}>Abandon round</button>
             <p className='score-counter'>{`Score: ${score}`}</p>
             <p className='score-counter'>{`Moves: ${moves}`}</p>
@@ -169,11 +169,21 @@ function App() {
       {/* <button onClick={addRandomCard}>Add card</button> */}
 
       {!gameStarted && <>
-          
-          <button onClick={startGame}
-            className="start-game-button">
-            Start Game!
-          </button>
+          <ul className="menu">
+            
+            <li>
+              <button onClick={startGame}
+                className="menu-button selectable">
+                Start Game
+              </button>
+            </li>
+            <li>
+              <button
+                className="menu-button selectable">
+                High Scores
+              </button>
+            </li>
+          </ul>
         </>}
       
 
