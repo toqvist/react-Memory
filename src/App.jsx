@@ -7,14 +7,17 @@ import { useEffect } from 'react/cjs/react.production.min';
 function App() {
   //To do
   //- Don't repeat myself in toggleSelected
-  //- Random placement of cards
   //- Resize grid to fit screen
   //- Pick grid rows+columns based on number of cards
+  //- Winning screen
+  //- Move counter
+  //- Game breaks if selecting during a match
 
   //Game state
   const [cards, setCards] = useState([])
   const [selections, setSelections] = useState([])
   const [score, setScore] = useState(0);
+  const [moves, setMoves] = useState(0);
   const [gameStarted, setGameStarted] = useState(false)
 
   //Game parameters
@@ -24,35 +27,38 @@ function App() {
 
   function toggleSelected(id) {
 
+    if (selections.length >= 2) {
+      return;
+    }
     const card = cards.find(card => card.id === id)
 
-    if(card.isRemoved) {
+    if (card.isRemoved) {
       console.log("Card is removed and not selectable")
       return
     }
 
     //Unselect if the card is selected
-    if(card.isSelected) {
+    if (card.isSelected) {
       const newSelections = []
       setSelections(newSelections)
 
       card.isSelected = !card.isSelected
       const newCards = [...cards]
       setCards(newCards)
-    
+
       return
-    } 
-    
+    }
+
     const newSelections = [...selections, card]
     setSelections(newSelections)
-    
+
     card.isSelected = !card.isSelected
     const newCards = [...cards]
     setCards(newCards)
-    
-    if(newSelections.length === 2) {
-      setTimeout(() => {  
-        match(newSelections[0],newSelections[1]) 
+
+    if (newSelections.length === 2) {
+      setTimeout(() => {
+        match(newSelections[0], newSelections[1])
       }, 1000);
 
     }
@@ -71,10 +77,10 @@ function App() {
       const newSelections = []
       setSelections(newSelections)
 
-      if((score+1) == cardPairs) {
+      if ((score + 1) == cardPairs) {
         endGame();
       }
-      
+
     } else {
       console.log("Not a match!")
       const newSelections = []
@@ -82,16 +88,22 @@ function App() {
 
       card1.isSelected = !card1.isSelected
       card2.isSelected = !card2.isSelected
-      
+
       const newCards = [...cards]
       setCards(newCards)
-    
+
     }
 
   }
 
   function endGame() {
     console.log("End of game!")
+    setGameStarted(false)
+    setCards([])
+    setScore(0)
+  }
+
+  function abandonRound() {
     setGameStarted(false)
     setCards([])
     setScore(0)
@@ -107,17 +119,17 @@ function App() {
 
     let newCards = []
     for (let i = 0; i < cardPairs; i++) {
-      
-      newCards.push ({ id: uuidv4(), icon: iconset[i], isSelected: false, isRemoved: false  });
-      newCards.push ({ id: uuidv4(), icon: iconset[i], isSelected: false, isRemoved: false  });
+
+      newCards.push({ id: uuidv4(), icon: iconset[i], isSelected: false, isRemoved: false });
+      newCards.push({ id: uuidv4(), icon: iconset[i], isSelected: false, isRemoved: false });
     }
 
     let randomizedNewCards = []
-    for (let i = 0; i<newCards.length; i++) {
+    for (let i = 0; i < newCards.length; i++) {
 
-      let randomIndex = (Math.random()*newCards.length);
+      let randomIndex = (Math.random() * newCards.length);
 
-      randomizedNewCards.splice(randomIndex,0, newCards[i])
+      randomizedNewCards.splice(randomIndex, 0, newCards[i])
     }
     console.log(newCards)
     console.log(randomizedNewCards)
@@ -129,28 +141,36 @@ function App() {
     card1.isRemoved = true;
     card2.isRemoved = true;
     // const newCards = cards.filter(c => c.id != card1.id && c.id != card2.id)
-    const newCards=[...cards]
+    const newCards = [...cards]
     setCards(newCards)
 
   }
 
   return (
     <div className="App app__background">
+      {gameStarted && <>
+      <div className="score">
+            <button className='quit-game'
+            onClick={abandonRound}>Abandon round</button>
+            <p className='score-counter'>{`Score: ${score}`}</p>
+            <p className='score-counter'>{`Moves: ${moves}`}</p>
+          </div>
+      </>}
 
-      <p className='score-counter'>{score}</p>
 
       <div className="board">
         <Board cards={cards} toggleSelected={toggleSelected}></Board>
       </div>
       {/* <button onClick={addRandomCard}>Add card</button> */}
-      
-      {!gameStarted &&
-        <button onClick={startGame}
-          className="start-game-button">
-          Start Game!
-        </button>
-      }
 
+      {!gameStarted && <>
+          
+          <button onClick={startGame}
+            className="start-game-button">
+            Start Game!
+          </button>
+        </>}
+      
 
     </div>
   )

@@ -62,9 +62,10 @@
 .score-counter {
     font-size: 2rem;
     color: aliceblue;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     max-width: 4em;
     display: block;
+    padding: ;
 }
 
 .removed-card {
@@ -75,4 +76,18 @@
 .start-game-button {
     width: 6rem;
     height: 2rem;
+}
+
+.quit-game {
+    border: solid rgb(42, 39, 25);
+    background-color: transparent;
+    color: aliceblue;
+    border-radius: 10px;
+    padding:1em;
+    font-size: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.quit-game:hover {
+    border: solid yellow;
 }
