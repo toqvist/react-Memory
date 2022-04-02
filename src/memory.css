@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    display: border-box;
 }
 
 .app__background {
@@ -50,11 +51,20 @@
     opacity: 0;
 }
 
+.score {
+    display: flex;
+    gap:1rem;
+    justify-content: space-around;
+    margin-bottom: 3rem;
+    margin-top: 2rem;
+}
+
 .score-counter {
-    font-size: 4rem;
+    font-size: 2rem;
     color: aliceblue;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-    max-width: 1em;
+    max-width: 4em;
+    display: block;
 }
 
 .removed-card {
