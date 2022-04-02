@@ -15,26 +15,29 @@
 }
 
 .card {
+    height: 150px;
+    width: 150px;
+    /* background-color: aliceblue; */
+    border-radius: 12px;
+    border: 3px solid transparent;
+}
+
+.card-front {
     background-color: aliceblue;
-    /* border: 12px solid rgb(233, 233, 233);; */
+    border: 3px solid aliceblue;
     border-radius: 14px;
     padding: 2rem;
     font-size: 4.5rem;
     text-align: center;
 }
 
-.selectable {
-    height: 150px;
-    width: 150px;
-    background-color: aliceblue;
-    border-radius: 12px;
 
-}
 
-.selectable:hover {
+.card:hover {
     /* transition: 100ms; */
     border: 3px solid yellow;
     border-radius: 15px;
+    
 }
 
 /* Make grid size reactive when adding grid options in game later */
@@ -42,7 +45,6 @@
     display: grid;
     grid-template-columns: repeat(5,1fr);
     grid-template-rows: repeat(4,1fr);
-
     gap: 1rem;
 }
 
@@ -65,7 +67,6 @@
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     max-width: 4em;
     display: block;
-    padding: ;
 }
 
 .removed-card {

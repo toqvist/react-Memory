@@ -12,7 +12,7 @@ export default function Card({ card, toggleSelected }) {
         to: {
             // opacity: !card.isSelected ? 0 : 1,
             transform: `perspective(600px) rotateY(${!card.isSelected ? 180 : 0}deg)`,
-            config: { mass: 5, tension: 500, friction: 80 },
+            config: { mass: 15, tension: 100, friction: 100 },
         }
     })
 
@@ -21,21 +21,22 @@ export default function Card({ card, toggleSelected }) {
     return (
 
         <animated.div onClick={handleSelected}
-            className={`selectable ${card.isRemoved && 'removed-card'}`}
+            className={`card ${card.isRemoved && 'removed-card'}`}
             style={flip}
         >
 
-            {!card.isSelected &&
-                <img src="/src/assets/square-card.svg" alt=""
-                    width='150' height='150'
-                />
-            }
-
-            {card.isSelected &&
-                <div className='card'>
-                    <p>{card.icon}</p>
-                </div>
-            }
+            <div className="border">
+                {!card.isSelected &&
+                    <img src="/src/assets/square-card.svg" alt=""
+                        width='150' height='150'
+                    />
+                }
+                {card.isSelected &&
+                    <div className='card-front'>
+                        <p>{card.icon}</p>
+                    </div>
+                }
+            </div>
         </animated.div>
 
     )
