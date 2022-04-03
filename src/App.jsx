@@ -10,8 +10,6 @@ function App() {
   //- Resize grid to fit screen
   //- Pick grid rows+columns based on number of cards
   //- Winning screen
-  //- Move counter
-  //- Game breaks if selecting during a match
 
   //Game state
   const [cards, setCards] = useState([])
@@ -72,6 +70,7 @@ function App() {
 
 
   function match(card1, card2) {
+    setMoves(moves+1)
     if (card1.icon === card2.icon) {
       console.log("Match!")
       setScore(score + 1)
@@ -106,16 +105,18 @@ function App() {
     setGameStarted(false)
     setCards([])
     setScore(0)
+    setMoves(0)
   }
 
   function abandonRound() {
     setGameStarted(false)
     setCards([])
     setScore(0)
+    setMoves(0)
   }
 
   function startGame() {
-
+    setSelections([])
     generateBoard();
     setGameStarted(true)
   }
@@ -169,23 +170,21 @@ function App() {
       {/* <button onClick={addRandomCard}>Add card</button> */}
 
       {!gameStarted && <>
-          <ul className="menu">
+          <div className="menu-container">
+            <div className="menu">
             
-            <li>
-              <button onClick={startGame}
-                className="menu-button selectable">
-                Start Game
-              </button>
-            </li>
-            <li>
-              <button
-                className="menu-button selectable">
-                High Scores
-              </button>
-            </li>
-          </ul>
+                <button onClick={startGame}
+                  className="menu-button selectable">
+                  Start Game
+                </button>
+                <button
+                  className="menu-button selectable">
+                  High Scores
+                </button>
+            
+            </div>
+          </div>
         </>}
-      
 
     </div>
   )
