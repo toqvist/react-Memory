@@ -129,7 +129,12 @@ function App() {
       case 'options':
         return <Options></Options>
       case 'playmemory':
-        return <Board></Board>
+        return <Board cards={cards} 
+        toggleSelected={toggleSelected}
+        score= {score}
+        moves = {moves}
+        resetGame = {resetGame}
+        />
     }
   }
   
@@ -199,21 +204,21 @@ function App() {
 
   return (
     <div className="App app__background">
-      {getGameStateComponent}
-
-
-      {gameStarted && <>
-      <div className="score">
-            <button className='quit-game selectable'
-            onClick={() => {resetGame()}}>Abandon round</button>
-            <p className='score-counter'>{`Score: ${score}`}</p>
-            <p className='score-counter'>{`Moves: ${moves}`}</p>
-          </div>
-      </>}
       
-      <Board cards={cards} toggleSelected={toggleSelected}></Board>
+      {/* {getGameStateComponent} */}
+
+      
+      {gameStarted &&
+      <Board cards={cards} 
+      toggleSelected={toggleSelected}
+      score= {score}
+      moves = {moves}
+      resetGame = {resetGame}
+      ></Board>}
       
       {/* <button onClick={addRandomCard}>Add card</button> */}
+
+      
 
       {!gameStarted && <>
           <animated.div className="menu-container"
