@@ -4,8 +4,10 @@ import Board from './lib/Board';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect } from 'react/cjs/react.production.min';
 import { useSpring, animated } from '@react-spring/web';
+
 import HighScore from './lib/HighScore';
 import HighScores from './lib/HighScores';
+import Menu from './lib/Menu'
 
 function App() {
   //To do
@@ -22,18 +24,13 @@ function App() {
   const [selections, setSelections] = useState([])
   const [score, setScore] = useState(0);
   const [moves, setMoves] = useState(0);
-  
-  
+
   
   //Persistent state
   const [highScores, setHighscores] = useState([])
   
   //menu, highscores, options, playmemory
   const [gameState, setGameState] = useState('menu')
-
-  const [gameStarted, setGameStarted] = useState(false)
-  const [showHighScores, setShowHighScores] = useState(false);
-  const [showMenu, setShowMenu] = useState(true);
 
   //Game parameters
   const iconset = ['🦍', '🦩', '🐼', '🐢', '🐬', '🦜', '🦢']
@@ -117,24 +114,29 @@ function App() {
   }
 
   //Returns appropriate component for current game state
-  function getGameStateComponent() {
-
-      //menu, highscores, options, playmemory
+  function GameStateComponent() {
 
     switch (gameState) {
+
       case 'menu':
-        return <Menu></Menu>
-      case 'highscores':
-        return <HighScores></HighScores>
       case 'options':
-        return <Options></Options>
+      case 'highscores':
+        return <Menu
+        gameState={gameState}
+        startGame={startGame}
+        setGameState={setGameState}
+        ></Menu>
       case 'playmemory':
-        return <Board cards={cards} 
+        return <Board
+        cards={cards} 
         toggleSelected={toggleSelected}
         score= {score}
         moves = {moves}
         resetGame = {resetGame}
-        />
+        ></Board>
+      default:
+        console.log(gameState)
+        return <p>Game state missing</p>
     }
   }
   
@@ -144,7 +146,7 @@ function App() {
   }
 
   function resetGame() {
-    setGameStarted(false)
+    setGameState('menu')
     setCards([])
     setScore(0)
     setMoves(0)
@@ -153,7 +155,7 @@ function App() {
   function startGame() {
     setSelections([])
     generateBoard();
-    setGameStarted(true)
+    setGameState("playmemory")
   }
 
   function generateBoard() {
@@ -177,7 +179,6 @@ function App() {
     setCards(randomizedNewCards);
   }
 
-
   function removeCards(card1, card2) {
     card1.isRemoved = true;
     card2.isRemoved = true;
@@ -187,16 +188,6 @@ function App() {
 
   }
 
-  const fadeIn = useSpring({
-    from: {
-      opacity: "0.05"
-    },
-    to: {
-      opacity: "1"
-    }
-    
-  })
-
   function newHighscore(score) {
     const newHighScores = [...highScores,score]
     setHighscores(newHighScores)
@@ -205,39 +196,7 @@ function App() {
   return (
     <div className="App app__background">
       
-      {/* {getGameStateComponent} */}
-
-      
-      {gameStarted &&
-      <Board cards={cards} 
-      toggleSelected={toggleSelected}
-      score= {score}
-      moves = {moves}
-      resetGame = {resetGame}
-      ></Board>}
-      
-      {/* <button onClick={addRandomCard}>Add card</button> */}
-
-      
-
-      {!gameStarted && <>
-          <animated.div className="menu-container"
-          style={fadeIn}>
-            <div className="menu">
-            
-                <button onClick={startGame}
-                  className="menu-button selectable">
-                  Start Game
-                </button>
-                <button onClick={() => setGameState('menu')}
-                  className="menu-button selectable">
-                  High Scores
-                </button>
-            
-            </div>
-          </animated.div>
-        </>}
-
+      <GameStateComponent></GameStateComponent>
 
     </div>
   )
