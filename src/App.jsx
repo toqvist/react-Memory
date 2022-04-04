@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './memory.css';
 import Board from './lib/Board';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect } from 'react/cjs/react.production.min';
+import { useSpring, animated } from '@react-spring/web';
 
 function App() {
   //To do
@@ -10,6 +11,7 @@ function App() {
   //- Resize grid to fit screen
   //- Pick grid rows+columns based on number of cards
   //- Winning screen
+  //- Board glitches if pressing abandon button during selection of card(s)
 
   //Game state
   const [cards, setCards] = useState([])
@@ -102,13 +104,10 @@ function App() {
 
   function endGame() {
     console.log("End of game!")
-    setGameStarted(false)
-    setCards([])
-    setScore(0)
-    setMoves(0)
+    resetGame()
   }
 
-  function abandonRound() {
+  function resetGame() {
     setGameStarted(false)
     setCards([])
     setScore(0)
@@ -152,12 +151,22 @@ function App() {
 
   }
 
+  const fadeIn = useSpring({
+    from: {
+      opacity: "0.05"
+    },
+    to: {
+      opacity: "1"
+    }
+    
+  })
+
   return (
     <div className="App app__background">
       {gameStarted && <>
       <div className="score">
             <button className='quit-game selectable'
-            onClick={abandonRound}>Abandon round</button>
+            onClick={() => {resetGame()}}>Abandon round</button>
             <p className='score-counter'>{`Score: ${score}`}</p>
             <p className='score-counter'>{`Moves: ${moves}`}</p>
           </div>
@@ -170,7 +179,8 @@ function App() {
       {/* <button onClick={addRandomCard}>Add card</button> */}
 
       {!gameStarted && <>
-          <div className="menu-container">
+          <animated.div className="menu-container"
+          style={fadeIn}>
             <div className="menu">
             
                 <button onClick={startGame}
@@ -183,7 +193,7 @@ function App() {
                 </button>
             
             </div>
-          </div>
+          </animated.div>
         </>}
 
     </div>
