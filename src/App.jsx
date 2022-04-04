@@ -4,6 +4,8 @@ import Board from './lib/Board';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect } from 'react/cjs/react.production.min';
 import { useSpring, animated } from '@react-spring/web';
+import HighScore from './lib/HighScore';
+import HighScores from './lib/HighScores';
 
 function App() {
   //To do
@@ -12,13 +14,26 @@ function App() {
   //- Pick grid rows+columns based on number of cards
   //- Winning screen
   //- Board glitches if pressing abandon button during selection of card(s)
+  //- Switch/case conditional rendering of menu/game state
+  //- Choose iconset in options
 
   //Game state
   const [cards, setCards] = useState([])
   const [selections, setSelections] = useState([])
   const [score, setScore] = useState(0);
   const [moves, setMoves] = useState(0);
+  
+  
+  
+  //Persistent state
+  const [highScores, setHighscores] = useState([])
+  
+  //menu, highscores, options, playmemory
+  const [gameState, setGameState] = useState('menu')
+
   const [gameStarted, setGameStarted] = useState(false)
+  const [showHighScores, setShowHighScores] = useState(false);
+  const [showMenu, setShowMenu] = useState(true);
 
   //Game parameters
   const iconset = ['🦍', '🦩', '🐼', '🐢', '🐬', '🦜', '🦢']
@@ -70,7 +85,6 @@ function App() {
 
   }
 
-
   function match(card1, card2) {
     setMoves(moves+1)
     if (card1.icon === card2.icon) {
@@ -102,6 +116,23 @@ function App() {
 
   }
 
+  //Returns appropriate component for current game state
+  function getGameStateComponent() {
+
+      //menu, highscores, options, playmemory
+
+    switch (gameState) {
+      case 'menu':
+        return <Menu></Menu>
+      case 'highscores':
+        return <HighScores></HighScores>
+      case 'options':
+        return <Options></Options>
+      case 'playmemory':
+        return <Board></Board>
+    }
+  }
+  
   function endGame() {
     console.log("End of game!")
     resetGame()
@@ -161,8 +192,16 @@ function App() {
     
   })
 
+  function newHighscore(score) {
+    const newHighScores = [...highScores,score]
+    setHighscores(newHighScores)
+  }
+
   return (
     <div className="App app__background">
+      {getGameStateComponent}
+
+
       {gameStarted && <>
       <div className="score">
             <button className='quit-game selectable'
@@ -171,11 +210,9 @@ function App() {
             <p className='score-counter'>{`Moves: ${moves}`}</p>
           </div>
       </>}
-
-
-      <div className="board">
-        <Board cards={cards} toggleSelected={toggleSelected}></Board>
-      </div>
+      
+      <Board cards={cards} toggleSelected={toggleSelected}></Board>
+      
       {/* <button onClick={addRandomCard}>Add card</button> */}
 
       {!gameStarted && <>
@@ -187,7 +224,7 @@ function App() {
                   className="menu-button selectable">
                   Start Game
                 </button>
-                <button
+                <button onClick={() => setGameState('menu')}
                   className="menu-button selectable">
                   High Scores
                 </button>
@@ -195,6 +232,7 @@ function App() {
             </div>
           </animated.div>
         </>}
+
 
     </div>
   )

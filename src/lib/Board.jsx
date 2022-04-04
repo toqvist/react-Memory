@@ -3,13 +3,22 @@ import Card from './Card/'
 
 export default function Board({cards, toggleSelected}) {
 
+
+    function renderCards() {
+         
+    }
+
     return (
-        cards.map(card => {
-            return <Card key={card.id}
-            card={card}
-            toggleSelected={toggleSelected}
-            icon={card.icon}
-            ></Card>
-        })     
+        
+        // {renderCards}
+        <div className='board'>
+            {cards.map(card => {
+                return <Card key={card.id}
+                card={card}
+                toggleSelected={toggleSelected}
+                icon={card.icon}
+                ></Card>
+            })}
+        </div>
     )
 }
