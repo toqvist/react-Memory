@@ -8,14 +8,9 @@ export default function Card({ card, toggleSelected }) {
     }
 
     const flip = useSpring({
-        from: {
-            transform: `perspective(600px) rotateY(${card.isSelected ? 0 : 0}deg)`,
-            config: { mass: 15, tension: 100, friction: 100 },
-        },
-
         to: {
             // opacity: !card.isSelected ? 0 : 1,
-            transform: `perspective(600px) rotateY(${card.isSelected ? 180 : 0}deg)`,
+            transform: `perspective(600px) rotateY(${!card.isSelected ? 180 : 0}deg)`,
             config: { mass: 15, tension: 100, friction: 100 },
         }
     })

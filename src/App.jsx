@@ -25,10 +25,10 @@ function App() {
   const [score, setScore] = useState(0);
   const [moves, setMoves] = useState(0);
 
-  
+
   //Persistent state
   const [highScores, setHighscores] = useState([])
-  
+
   //menu, highscores, options, playmemory
   const [gameState, setGameState] = useState('menu')
 
@@ -62,7 +62,7 @@ function App() {
     // }
 
     if (card.isSelected) {
-      
+
       return
     }
 
@@ -83,7 +83,7 @@ function App() {
   }
 
   function match(card1, card2) {
-    setMoves(moves+1)
+    setMoves(moves + 1)
     if (card1.icon === card2.icon) {
       console.log("Match!")
       setScore(score + 1)
@@ -113,33 +113,6 @@ function App() {
 
   }
 
-  //Returns appropriate component for current game state
-  function GameStateComponent() {
-
-    switch (gameState) {
-
-      case 'menu':
-      case 'options':
-      case 'highscores':
-        return <Menu
-        gameState={gameState}
-        startGame={startGame}
-        setGameState={setGameState}
-        ></Menu>
-      case 'playmemory':
-        return <Board
-        cards={cards} 
-        toggleSelected={toggleSelected}
-        score= {score}
-        moves = {moves}
-        resetGame = {resetGame}
-        ></Board>
-      default:
-        console.log(gameState)
-        return <p>Game state missing</p>
-    }
-  }
-  
   function endGame() {
     console.log("End of game!")
     resetGame()
@@ -189,14 +162,30 @@ function App() {
   }
 
   function newHighscore(score) {
-    const newHighScores = [...highScores,score]
+    const newHighScores = [...highScores, score]
     setHighscores(newHighScores)
   }
 
   return (
     <div className="App app__background">
-      
-      <GameStateComponent></GameStateComponent>
+
+      {gameState === 'menu' &&
+        <Menu
+          gameState={gameState}
+          startGame={startGame}
+          setGameState={setGameState}
+        />
+      }
+
+      {gameState === 'playmemory' &&
+        <Board
+          cards={cards}
+          toggleSelected={toggleSelected}
+          score={score}
+          moves={moves}
+          resetGame={resetGame}
+        />
+      }
 
     </div>
   )
