@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useSpring, animated } from '@react-spring/web'
+import cardBack from '../assets/square-card.svg'
 
 export default function Card({ card, toggleSelected }) {
 
@@ -15,18 +16,14 @@ export default function Card({ card, toggleSelected }) {
         }
     })
 
-
-
     return (
 
         <animated.div onClick={handleSelected}
             className={`card selectable ${card.isRemoved && 'removed-card'}`}
             style={flip}
         >
-
-            
             {!card.isSelected &&
-                <img src="/src/assets/square-card.svg" alt=""
+                <img src={cardBack} alt=""
                     width='150' height='150' 
                 />
             }
