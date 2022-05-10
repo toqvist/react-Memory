@@ -16,7 +16,6 @@ function App() {
   //- Pick grid rows+columns based on number of cards
   //- Winning screen
   //- Board glitches if pressing abandon button during selection of card(s)
-  //- Switch/case conditional rendering of menu/game state
   //- Choose iconset in options
 
   //Game state
